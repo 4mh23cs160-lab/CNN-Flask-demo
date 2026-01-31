@@ -114,13 +114,20 @@
         <h1>Hello, World!</h1>
         <p>Welcome to your AI-Powered Image Classifier.</p>
 
-        <form action="/predict" method="post" enctype="multipart/form-data">
-            <!-- Hidden input for now, we will style a proper upload later -->
-            <button type="button" class="btn" onclick="document.getElementById('file-input').click()">Get
-                Started</button>
+        <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+            <button type="button" class="btn" onclick="document.getElementById('file-input').click()">
+                {% if result %} Try Another Image {% else %} Upload Image {% endif %}
+            </button>
             <input type="file" id="file-input" name="file" style="display: none;"
-                onchange="alert('Image selected! Implementation coming soon.')">
+                onchange="document.getElementById('upload-form').submit()">
         </form>
+
+        {% if result %}
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.2); border-radius: 10px;">
+            <h2 style="font-size: 1.5rem; margin: 0;">Result:</h2>
+            <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; color: #fff;">{{ result }}</p>
+        </div>
+        {% endif %}
     </div>
 </body>
 
